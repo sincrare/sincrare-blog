@@ -60,3 +60,7 @@ group :test do
   gem 'rspec'
   gem 'rspec-rails'
 end
+
+# HAML
+gem 'haml-rails'
+gem 'erb2haml'
