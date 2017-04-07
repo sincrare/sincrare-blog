@@ -1,0 +1,19 @@
+%h1 Listing authorities
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @authorities.each do |authority|
+      %tr
+        %td= link_to 'Show', authority
+        %td= link_to 'Edit', edit_authority_path(authority)
+        %td= link_to 'Destroy', authority, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Authority', new_authority_path

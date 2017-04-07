@@ -1,0 +1,10 @@
+= form_for @authority do |f|
+  - if @authority.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@authority.errors.count, "error")} prohibited this authority from being saved:"
+      %ul
+        - @authority.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'
