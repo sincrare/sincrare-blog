@@ -1,0 +1,18 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title SincrareBlog
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    %nav
+      %ul
+        %li= link_to '記事一覧', admin_articles_path
+        %li= link_to 'コメント一覧', admin_comments_path
+        %li= link_to '権限一覧', admin_authorities_path
+        %li= link_to 'タグ一覧', admin_tags_path
+        %li= link_to 'ユーザー一覧', admin_users_path
+
+    = yield

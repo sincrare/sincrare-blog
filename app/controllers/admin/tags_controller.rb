@@ -1,5 +1,6 @@
 class Admin::TagsController < ApplicationController
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
+  layout 'admin_layout'
 
   # GET /tags
   def index

@@ -1,5 +1,6 @@
 class Admin::AuthoritiesController < ApplicationController
   before_action :set_authority, only: [:show, :edit, :update, :destroy]
+  layout 'admin_layout'
 
   # GET /authorities
   def index

@@ -1,5 +1,6 @@
 class Admin::CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  layout 'admin_layout'
 
   # GET /comments
   def index
