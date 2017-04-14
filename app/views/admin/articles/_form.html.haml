@@ -6,5 +6,35 @@
         - @article.errors.full_messages.each do |msg|
           %li= msg
 
+  .field
+    = f.label :entry_at, '日時:'
+    = f.datetime_select :entry_at
+
+  .field
+    = f.label :title, 'タイトル:'
+    = f.text_field :title
+
+  .field
+    = f.label :content, '記事:'
+    = f.text_area :content
+
+  .field
+    = f.label :tags, 'タグ:'
+    = collection_check_boxes(:article, :tag_ids, Tag.all, :id, :name) do |t|
+      = t.label { t.check_box + t.text }
+
+  .field
+    = f.label :authorities, '権限:'
+    = collection_check_boxes(:article, :authority_ids, Authority.all, :id, :name) do |a|
+      = a.label { a.check_box + a.text }
+
+  .field
+    = f.label :is_draft, '下書き:'
+    = f.check_box :is_draft
+
+  .field
+    = f.label :og_image, 'Open Graph画像'
+    = f.text_field :og_image
+
   .actions
     = f.submit 'Save'

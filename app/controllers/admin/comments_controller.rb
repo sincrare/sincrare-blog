@@ -24,7 +24,7 @@ class Admin::CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
 
     if @comment.save
-      redirect_to @comment, notice: 'Comment was successfully created.'
+      redirect_to admin_comment_path(@comment), notice: 'Comment was successfully created.'
     else
       render :new
     end
@@ -33,7 +33,7 @@ class Admin::CommentsController < ApplicationController
   # PATCH/PUT /comments/1
   def update
     if @comment.update(comment_params)
-      redirect_to @comment, notice: 'Comment was successfully updated.'
+      redirect_to admin_comment_path(@comment), notice: 'Comment was successfully updated.'
     else
       render :edit
     end
@@ -53,6 +53,6 @@ class Admin::CommentsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def comment_params
-      params.fetch(:comment, {})
+      params.require(:comment).permit(:article_id, :content, :entry_user_id)
     end
 end

@@ -3,6 +3,7 @@
 %table
   %thead
     %tr
+      %th 権限名
       %th
       %th
       %th
@@ -10,9 +11,10 @@
   %tbody
     - @authorities.each do |authority|
       %tr
-        %td= link_to 'Show', authority
+        %td= authority.name
+        %td= link_to 'Show', admin_authority_path(authority)
         %td= link_to 'Edit', edit_admin_authority_path(authority)
-        %td= link_to 'Destroy', authority, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= link_to 'Destroy', admin_authority_path(authority), :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 

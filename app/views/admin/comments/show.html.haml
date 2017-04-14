@@ -1,6 +1,21 @@
 %p#notice= notice
 
+%p
+  %b 記事日時：
+  = @comment.article.entry_at
 
-= link_to 'Edit', admin_edit_comment_path(@comment)
+%p
+  %b 記事タイトル：
+  = @comment.article.title
+
+%p
+  %b コメント：
+  = @comment.content
+
+%p
+  %b 投稿ユーザー：
+  = @comment.user.name
+
+= link_to 'Edit', edit_admin_comment_path(@comment)
 \|
 = link_to 'Back', admin_comments_path

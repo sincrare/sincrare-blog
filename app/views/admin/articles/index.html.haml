@@ -3,6 +3,9 @@
 %table
   %thead
     %tr
+      %th 日時
+      %th タイトル
+      %th 下書き
       %th
       %th
       %th
@@ -10,9 +13,12 @@
   %tbody
     - @articles.each do |article|
       %tr
-        %td= link_to 'Show', article
+        %td= article.entry_at
+        %td= article.title
+        %td= article.is_draft
+        %td= link_to 'Show', admin_article_path(article)
         %td= link_to 'Edit', edit_admin_article_path(article)
-        %td= link_to 'Destroy', article, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= link_to 'Destroy', admin_article_path(article), :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 

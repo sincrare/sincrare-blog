@@ -24,7 +24,7 @@ class Admin::AuthoritiesController < ApplicationController
     @authority = Authority.new(authority_params)
 
     if @authority.save
-      redirect_to @authority, notice: 'Authority was successfully created.'
+      redirect_to admin_authority_path(@authority), notice: 'Authority was successfully created.'
     else
       render :new
     end
@@ -33,7 +33,7 @@ class Admin::AuthoritiesController < ApplicationController
   # PATCH/PUT /authorities/1
   def update
     if @authority.update(authority_params)
-      redirect_to @authority, notice: 'Authority was successfully updated.'
+      redirect_to admin_authority_path(@authority), notice: 'Authority was successfully updated.'
     else
       render :edit
     end
@@ -53,6 +53,6 @@ class Admin::AuthoritiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def authority_params
-      params.fetch(:authority, {})
+      params.require(:authority).permit(:name)
     end
 end

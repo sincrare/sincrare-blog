@@ -24,7 +24,7 @@ class Admin::ArticlesController < ApplicationController
     @article = Article.new(article_params)
 
     if @article.save
-      redirect_to @article, notice: 'Article was successfully created.'
+      redirect_to admin_article_path(@article), notice: 'Article was successfully created.'
     else
       render :new
     end
@@ -33,7 +33,7 @@ class Admin::ArticlesController < ApplicationController
   # PATCH/PUT /articles/1
   def update
     if @article.update(article_params)
-      redirect_to @article, notice: 'Article was successfully updated.'
+      redirect_to admin_article_path(@article), notice: 'Article was successfully updated.'
     else
       render :edit
     end
@@ -53,6 +53,6 @@ class Admin::ArticlesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def article_params
-      params.fetch(:article, {})
+      params.require(:article).permit(:title, :content, :entry_at, :is_draft, :og_image, tag_ids:[], authority_ids:[])
     end
 end

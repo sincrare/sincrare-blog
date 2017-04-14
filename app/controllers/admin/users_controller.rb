@@ -24,7 +24,7 @@ class Admin::UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to @user, notice: 'User was successfully created.'
+      redirect_to admin_user_path(@user), notice: 'User was successfully created.'
     else
       render :new
     end
@@ -33,7 +33,7 @@ class Admin::UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated.'
+      redirect_to admin_user_path(@user), notice: 'User was successfully updated.'
     else
       render :edit
     end
@@ -53,6 +53,6 @@ class Admin::UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.fetch(:user, {})
+      params.require(:user).permit(:name, :authority_id, :mail_address, :password, :memo)
     end
 end
