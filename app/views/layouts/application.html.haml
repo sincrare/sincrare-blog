@@ -10,7 +10,8 @@
     %header
       %nav
         - if user_signed_in?
-          Logged in as %strong= current_user.email
+          Logged in as
+          %strong= current_user.email
           = link_to 'プロフィール変更', edit_user_registration_path
           |
           = link_to "ログアウト", destroy_user_session_path, method: :delete

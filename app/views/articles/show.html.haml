@@ -1,0 +1,37 @@
+%p#notice= notice
+
+%p
+  %b 日時:
+  = @article.entry_at
+
+%p
+  %b タイトル:
+  = @article.title
+
+%p
+  %b 記事:
+  = @article.content
+
+%p
+  %b タグ:
+  - unless @article.tags.empty?
+    %ul
+      - @article.tags.each do |tag|
+        %li= tag.name
+
+%p
+  %b 権限:
+  - unless @article.authorities.empty?
+    %ul
+      - @article.authorities.each do |authority|
+        %li= authority.name
+
+%p
+  %b 下書き:
+  = @article.is_draft
+
+%p
+  %b Open Graph画像:
+  = @article.og_image
+
+= link_to 'Back', admin_articles_path

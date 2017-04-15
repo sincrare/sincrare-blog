@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: 'article#index'
+  root to: 'articles#index'
 
+  resources :articles, :only => [:index, :show]
   namespace :admin do
     resources :articles
     resources :comments
