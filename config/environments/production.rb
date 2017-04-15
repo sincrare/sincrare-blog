@@ -86,7 +86,7 @@ Rails.application.configure do
 
   # Mail Config
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { :host => 'xxxx.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => Setting.heroku[:host_name] }
   config.action_mailer.smtp_settings = {
       :enable_starttls_auto => true,
       :address => 'smtp.sendgrid.net',

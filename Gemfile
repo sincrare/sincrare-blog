@@ -73,3 +73,6 @@ gem 'erb2haml'
 
 # devise
 gem 'devise'
+
+# config
+gem 'config'
