@@ -7,24 +7,24 @@
           %li= msg
 
   .field
-    = f.label :name
+    = f.label :name, '名前:'
     = f.text_field :name
 
   .field
-    = f.label :authority_id
+    = f.label :authority_id, '権限:'
     = collection_radio_buttons(:user, :authority_id, Authority.all, :id, :name) do |a|
       = a.label { a.radio_button + a.text }
 
   .field
-    = f.label :mail_address
+    = f.label :mail_address, 'メールアドレス:'
     = f.text_field :mail_address
 
   .field
-    = f.label :password
+    = f.label :password, 'パスワード:'
     = f.text_field :password
 
   .field
-    = f.label :memo
+    = f.label :memo, 'メモ:'
     = f.text_field :memo
 
   .actions

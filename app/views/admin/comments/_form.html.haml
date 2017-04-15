@@ -7,15 +7,15 @@
           %li= msg
 
   .field
-    = f.label :article_id
+    = f.label :article_id, '記事ID:'
     = f.number_field :article_id
 
   .field
-    = f.label :content
+    = f.label :content, 'コメント:'
     = f.text_area :content
 
   .field
-    = f.label :entry_user_id
+    = f.label :entry_user_id, '投稿ユーザーID:'
     = f.number_field :entry_user_id
 
   .actions
