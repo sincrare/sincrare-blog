@@ -70,3 +70,6 @@ end
 # HAML
 gem 'haml-rails'
 gem 'erb2haml'
+
+# devise
+gem 'devise'
