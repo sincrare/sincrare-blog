@@ -26,12 +26,12 @@ ActiveRecord::Schema.define(version: 20170415193745) do
   end
 
   create_table "article_authorities", force: :cascade do |t|
-    t.integer  "article"
-    t.integer  "authority"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["article"], name: "index_article_authorities_on_article", using: :btree
-    t.index ["authority"], name: "index_article_authorities_on_authority", using: :btree
+    t.integer  "article_id"
+    t.integer  "authority_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["article_id"], name: "index_article_authorities_on_article_id", using: :btree
+    t.index ["authority_id"], name: "index_article_authorities_on_authority_id", using: :btree
   end
 
   create_table "article_tags", force: :cascade do |t|
@@ -101,6 +101,8 @@ ActiveRecord::Schema.define(version: 20170415193745) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "article_authorities", "articles"
+  add_foreign_key "article_authorities", "authorities"
   add_foreign_key "article_tags", "articles"
   add_foreign_key "article_tags", "tags"
 end
