@@ -1,3 +1,99 @@
-// Place all the styles related to the Articles controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+body
+{
+  margin:0px;
+  padding:0px;
+  font-family:'MS PGothic',sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  letter-spacing: 0;
+  height:100%;
+}
+
+header
+{
+  width:1115px;
+  margin:0px auto;
+}
+
+main
+{
+  position:relative;
+  min-width:700px;
+  max-width:900px;
+  background:white;
+  margin:0px auto;
+  padding:0px;
+}
+
+.articles
+{
+  margin:0px 200px 0px 0px;
+}
+
+article
+{
+  padding:5px 20px 20px 20px;
+  border-left:5px solid brown;
+}
+
+article .entry_date
+{
+  float:left;
+  width:98px;
+  height:108px;
+  font-size:1.2em;
+  text-align:center;
+  background-image:image_url('date_background.png');
+  font-family: 'Damion',sans-serif;
+  font-size: 25px;
+  line-height:28px;
+  color:white;
+  padding-right:10px;
+}
+
+article .entry_day
+{
+  font-size: 32px;
+  line-height:32px;
+}
+
+.article_separator_line
+{
+  border-width: 2px 0px 0px 0px;
+  border-style: dashed;
+  border-color: #ff9d9d;
+  min-width:430px;
+  max-width:630px;
+  padding-bottom : 20px;
+}
+
+.sidebar
+{
+  float:right;
+  width:200px;
+  padding:20px;
+}
+
+.sidebar h1
+{
+  color:white;
+  font-weight:bold;
+  background-color:brown;
+  padding:5px 10px;
+  margin:10px 0px;
+  box-shadow: -5px 0px 0px #500000;
+}
+
+.name
+{
+  font-weight:bold;
+  margin:5px 0px;
+}
+
+footer
+{
+  clear:both;
+  width:100%;
+  background-color:orange;
+  padding-left:10px;
+}

@@ -1,18 +1,16 @@
-%table
-  %thead
-    %tr
-      %th 日時
-      %th タイトル
-      %th 下書き
-      %th
-      %th
-      %th
+- @articles.each_with_index do |article, index|
+  %article
+    - if index > 0
+      %hr.article_separator_line
+    %header
+      %time.entry_date(datetime="#{article.entry_at.strftime('%Y-%m-%d %H:%M')}")
+        = article.entry_at.strftime('%Y')
+        .entry_day= article.entry_at.strftime('%m/%d')
+        = article.entry_at.strftime('%H:%M')
+      %h1= article.title
+      %p= 'カテゴリ：' + (article.tags.pluck :name).join(',')
+      %p= (link_to "コメント(#{article.comments.count})", admin_article_path(article))  + '/' + (link_to 'この記事のURL', admin_article_path(article))
 
-  %tbody
-    - @articles.each do |article|
-      %tr
-        %td= article.entry_at
-        %td= article.title
-        %td= article.is_draft
-        %td= link_to 'Show', admin_article_path(article)
+    = article.content
 
+    %p= (link_to "コメント(#{article.comments.count})", admin_article_path(article))  + '/' + (link_to 'この記事のURL', admin_article_path(article))

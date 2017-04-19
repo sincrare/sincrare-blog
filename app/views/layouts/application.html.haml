@@ -1,25 +1,53 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title SincrareBlog
+    %meta{:charset => 'UTF-8'}/
+    %title しんくれあ記
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    %link{:href => 'http://fonts.googleapis.com/css?family=Damion&subset=latin', :rel => 'stylesheet', :type => 'text/css'}
   %body
     %header
-      %nav
-        - if user_signed_in?
-          Logged in as
-          %strong= current_user.email
-          = link_to 'プロフィール変更', edit_user_registration_path
-          |
-          = link_to "ログアウト", destroy_user_session_path, method: :delete
-        - else
-          = link_to "サインイン", new_user_registration_path
-          |
-          = link_to "ログイン", new_user_session_path
+      = link_to image_tag('title.png', { alt: 'しんくれあ記'}), articles_path
 
     %p.notice= notice
     %p.alert= alert
-    = yield
+    %main(role='main')
+      %section.sidebar
+        %aside
+          - if user_signed_in?
+            %h1 アカウント
+            Logged in as
+            %strong= current_user.email
+            = link_to 'プロフィール変更', edit_user_registration_path
+            |
+            = link_to 'ログアウト', destroy_user_session_path, method: :delete
+          - else
+            %h1 ログイン
+            = link_to 'サインイン', new_user_registration_path
+            |
+            = link_to 'ログイン', new_user_session_path
+
+        %aside
+          %h1 プロフィール
+          %p.name HN:しんくれあ
+          %p 受託開発メインのIT企業に勤務するC#er。趣味は木工と読書です。これまでプライベートな日記がメインのブログでしたが、技術的な記事も書いていきたいと思います。
+
+        %aside
+          %h1 記事の検索
+
+        %aside
+          %h1 カテゴリ
+
+        %aside
+          %h1 最新コメント
+
+        %aside
+          %h1 RSS
+
+      %section.articles
+        = yield
+
+    %footer
+      %p Copyright (C) 2013 sincrare All Rights Reserved.
