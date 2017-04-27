@@ -1,15 +1,13 @@
-%p#notice= notice
+%article.article
+  %header
+    %time.entry_date(datetime="#{@article.entry_at.strftime('%Y-%m-%d %H:%M')}")
+      = @article.entry_at.strftime('%Y')
+      .entry_day= @article.entry_at.strftime('%m/%d')
+      = @article.entry_at.strftime('%H:%M')
+    %h1.title= @article.title
+    %p= 'カテゴリ：' + (@article.tags.pluck :name).join(',')
+    %p= (link_to "コメント(#{@article.comments.count})", article_path(@article, anchor: :comments))  + '/' + (link_to 'この記事のURL', article_path(@article))
 
-%p
-  %b 日時:
-  = @article.entry_at
-
-%p
-  %b タイトル:
-  = @article.title
-
-%p
-  %b 記事:
   = @article.content
 
 %p
@@ -26,9 +24,7 @@
       - @article.authorities.each do |authority|
         %li= authority.name
 
-%p
-  %b 下書き:
-  = @article.is_draft
+    %hr
 
 %p
   %b Open Graph画像:
