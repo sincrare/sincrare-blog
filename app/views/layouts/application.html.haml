@@ -18,7 +18,6 @@
         %aside
           - if user_signed_in?
             %h1 アカウント
-            Logged in as
             %strong= current_user.email
             = link_to 'プロフィール変更', edit_user_registration_path
             |
