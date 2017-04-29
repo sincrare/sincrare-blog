@@ -14,21 +14,29 @@
 
   %hr
   %section#comment
-    %h1.title コメント
+    - if user_signed_in?
+      %h1.title コメント
 
-    - @article.comments.each_with_index do |comment, index|
-      - if index > 0
-        %hr.article_separator_line
-      %p=comment.content
-      %p=comment.user.name + '/' + comment.created_at.strftime('%Y/%m/%d %H:%M')
+      - @article.comments.each_with_index do |comment, index|
+        - if index > 0
+          %hr.article_separator_line
+        %p=comment.content
+        %p=comment.user.name + '/' + comment.created_at.strftime('%Y/%m/%d %H:%M')
 
-    %hr
+      %hr
 
     %h1.title コメントする
-    = form_tag(entry_comment_article_path(@article), method: 'post')  do
-      .field
-        = label_tag 'comment[content]', 'コメント:'
-        = text_area_tag 'comment[content]'
+    - if user_signed_in?
+      = form_tag(entry_comment_article_path(@article), method: 'post')  do
+        .field
+          = label_tag 'comment[entry_user_name]', '名前:'
+          = text_field_tag 'comment[entry_user_name]'
+        .field
+          = label_tag 'comment[content]', 'コメント:'
+          = text_area_tag 'comment[content]'
+        .actions
+          = submit_tag 'コメント送信'
+    - else
+      %p 迷惑コメントが多いため、コメント投稿にはログインが必要です。
 
-      .actions
-        = submit_tag 'コメント送信'
+

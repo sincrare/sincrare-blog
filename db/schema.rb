@@ -61,10 +61,11 @@ ActiveRecord::Schema.define(version: 20170421162605) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "article_id"
+    t.string   "entry_user_name"
     t.text     "content"
     t.integer  "entry_user_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "likes", force: :cascade do |t|
@@ -98,7 +99,7 @@ ActiveRecord::Schema.define(version: 20170421162605) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "name"
-    t.integer  "authority_id",           default: 1,  null: false
+    t.integer  "authority_id"
     t.text     "comment"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree

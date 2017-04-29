@@ -51,7 +51,7 @@ class ArticlesController < ApplicationController
   def entry_comment
     @article = Article.includes(:authorities).find_by(id: params[:id], authorities: {id: @authorityId}, is_draft: false)
     if @article.present?
-      @comment = Comment.new(article_id: @article.id, content: comment_params[:content], entry_user_id: @authorityId)
+      @comment = Comment.new(article_id: @article.id, entry_user_name: comment_params[:entry_user_name], content: comment_params[:content], entry_user_id: @authorityId)
       if @comment.save
         redirect_to article_path(@article, anchor: :comments), notice: 'コメントを投稿しました。'
       else
@@ -96,6 +96,6 @@ class ArticlesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def comment_params
-      params.require(:comment).permit(:content)
+      params.require(:comment).permit(:entry_user_name, :content)
     end
 end

@@ -48,7 +48,7 @@
           %h1 最新コメント
           - @recent_comments.each do |comment|
             %ul.list
-              %li= link_to comment.article.title, article_path(comment.article, anchor: :comments)
+              %li= link_to '%s<br />%s(%s)' % [comment.entry_user_name, comment.article.title, comment.created_at], article_path(comment.article, anchor: :comments)
 
         %aside
           %h1 RSS
