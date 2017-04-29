@@ -41,6 +41,12 @@ footer
   font-family: 'Hiragino Kaku Gothic Pro W3', Meiryo, sans-serif;
 }
 
+.center
+{
+  text-align:center;
+  display:block;
+}
+
 .articles
 {
   margin: 0px 200px 0px 0px;
@@ -104,5 +110,12 @@ footer
 {
   font-weight: bold;
   margin: 5px 0px;
+}
+
+.list
+{
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
 }
 

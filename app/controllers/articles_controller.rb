@@ -1,6 +1,9 @@
 class ArticlesController < ApplicationController
   before_action :set_authority
+  before_action :set_tags
+  before_action :set_recent_comments
   ARTICLES_COUNT_PER_PAGE = 5
+  RECENT_COMMENTS_COUNT = 10
 
   # GET /articles
   def index
@@ -40,8 +43,8 @@ class ArticlesController < ApplicationController
 
   # GET /articles/tag/1/page/1
   def tag
-    @articles = Article.includes([:authorities, :tags]).order(entry_at: :desc).where(tags: {id: params[:tag_id]}, authorities: {id: @authorityId}, is_draft: false).offset(page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
-    #render 'index'
+    @articles = Article.includes(:authorities, :tags).order(entry_at: :desc).where(authorities: {id: @authorityId}, is_draft: false).where(tags: {id: params[:tag_id]}).offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
+    render 'index'
   end
 
   # POST /articles/1/entry_comment
@@ -65,6 +68,14 @@ class ArticlesController < ApplicationController
       if user_signed_in?
         @authorityId = current_user.authority_id
       end
+    end
+
+    def set_tags
+      @tags = Tag.all
+    end
+
+    def set_recent_comments
+      @recent_comments = Comment.includes(article: :authorities).where(authorities: {id: @authorityId}).take(RECENT_COMMENTS_COUNT)
     end
 
     def current_page

@@ -1,6 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   def build_resource(hash=nil)
-    hash[:authority] = Authority.first
+    hash[:authority] = Authority.find(id: 1)
     super
   end
 end

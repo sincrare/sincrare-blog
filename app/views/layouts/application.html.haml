@@ -11,22 +11,24 @@
     %header
       = link_to image_tag('title.png', { alt: 'しんくれあ記'}), articles_path
 
-    %p.notice= notice
-    %p.alert= alert
     %main(role='main')
+      %p.notice= notice
+      %p.alert= alert
       %section.sidebar
         %aside
           - if user_signed_in?
             %h1 アカウント
             %strong= current_user.email
-            = link_to 'プロフィール変更', edit_user_registration_path
-            |
-            = link_to 'ログアウト', destroy_user_session_path, method: :delete
+            %p
+              = link_to 'プロフィール変更', edit_user_registration_path
+              |
+              = link_to 'ログアウト', destroy_user_session_path, method: :delete
           - else
             %h1 ログイン
-            = link_to 'サインイン', new_user_registration_path
-            |
-            = link_to 'ログイン', new_user_session_path
+            %p
+              = link_to 'サインイン', new_user_registration_path
+              |
+              = link_to 'ログイン', new_user_session_path
 
         %aside
           %h1 プロフィール
@@ -37,10 +39,16 @@
           %h1 記事の検索
 
         %aside
-          %h1 カテゴリ
+          %h1 タグ
+          - @tags.each do |tag|
+            %ul.list
+              %li= link_to tag.name, '/articles/tag/' + tag.id.to_s
 
         %aside
           %h1 最新コメント
+          - @recent_comments.each do |comment|
+            %ul.list
+              %li= link_to comment.article.title, article_path(comment.article, anchor: :comments)
 
         %aside
           %h1 RSS
