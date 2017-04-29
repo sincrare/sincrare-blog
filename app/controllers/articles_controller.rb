@@ -1,9 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :set_authority
-  before_action :set_tags
-  before_action :set_recent_comments
   ARTICLES_COUNT_PER_PAGE = 5
-  RECENT_COMMENTS_COUNT = 10
 
   # GET /articles
   def index
