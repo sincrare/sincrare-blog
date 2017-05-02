@@ -43,10 +43,10 @@
             %input{type: 'button', value: '検索', onclick: "location.href='/articles/search_by/' + $('#keyword').val()" }
 
         %aside
-          %h1 カレンダー
-
-        %aside
           %h1 月選択
+          - @monthly_articles_count.each do |monthly_articles|
+            %ul.list
+              %li= link_to '%s月%s日' % monthly_articles[0] + '(%s)' % monthly_articles[1], '/articles/monthly/%s/%s' % monthly_articles[0]
 
         %aside
           %h1 タグ

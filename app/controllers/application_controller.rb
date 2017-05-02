@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :set_authority
   before_action :set_tags
   before_action :set_recent_comments
+  before_action :set_monthly_count
   RECENT_COMMENTS_COUNT = 10
 
   protected
@@ -29,5 +30,9 @@ class ApplicationController < ActionController::Base
 
     def set_recent_comments
       @recent_comments = Comment.includes(article: :authorities).where(authorities: {id: @authorityId}).take(RECENT_COMMENTS_COUNT)
+    end
+
+    def set_monthly_count
+      @monthly_articles_count = Article.includes(:authorities).where(authorities: {id: @authorityId}, is_draft: false).group("to_char(entry_at, 'yyyy')").group("to_char(entry_at, 'MM')").count
     end
 end
