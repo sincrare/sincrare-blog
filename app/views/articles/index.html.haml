@@ -1,16 +1,20 @@
-- @articles.each_with_index do |article, index|
-  %article.article
-    - if index > 0
-      %hr.article_separator_line
-    %header
-      %time.entry_date(datetime="#{article.entry_at.strftime('%Y-%m-%d %H:%M')}")
-        = article.entry_at.strftime('%Y')
-        .entry_day= article.entry_at.strftime('%m/%d')
-        = article.entry_at.strftime('%H:%M')
-      %h1.title= article.title
-      %p= 'タグ：' + (article.tags.pluck :name).join(',')
+- if @articles.present?
+  - @articles.each_with_index do |article, index|
+    %article.article
+      - if index > 0
+        %hr.article_separator_line
+      %header
+        %time.entry_date(datetime="#{article.entry_at.strftime('%Y-%m-%d %H:%M')}")
+          = article.entry_at.strftime('%Y')
+          .entry_day= article.entry_at.strftime('%m/%d')
+          = article.entry_at.strftime('%H:%M')
+        %h1.title= article.title
+        %p= 'タグ：' + (article.tags.pluck :name).join(',')
+        %p= (link_to "コメント(#{article.comments.count})", article_path(article, anchor: :comments))  + '/' + (link_to 'この記事のURL', article_path(article))
+
+      = article.content
+
       %p= (link_to "コメント(#{article.comments.count})", article_path(article, anchor: :comments))  + '/' + (link_to 'この記事のURL', article_path(article))
 
-    = article.content
-
-    %p= (link_to "コメント(#{article.comments.count})", article_path(article, anchor: :comments))  + '/' + (link_to 'この記事のURL', article_path(article))
+- else
+  %p.center 条件に一致する記事がありません
