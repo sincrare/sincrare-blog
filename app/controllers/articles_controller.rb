@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles
   def index
-    @articles = Article.user_accessible(@authorityId).take(ARTICLES_COUNT_PER_PAGE)
+    @articles = Article.user_accessible(@authorityId).order_by_descending.take(ARTICLES_COUNT_PER_PAGE)
   end
 
   # GET /articles/1
@@ -13,33 +13,33 @@ class ArticlesController < ApplicationController
 
   # GET /articles/page/1
   def page
-    @articles = Article.user_accessible(@authorityId).offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
+    @articles = Article.user_accessible(@authorityId).order_by_descending.offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
     render 'index'
   end
 
   # GET /articles/daily/2017/01/01/page/1
   def daily
     targetDay = datetime_parse(params[:year], params[:month], params[:day])
-    @articles = Article.user_accessible(@authorityId).where(entry_at: targetDay.to_time.all_day).offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
+    @articles = Article.user_accessible(@authorityId).order_by_descending.where(entry_at: targetDay.to_time.all_day).offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
     render 'index'
   end
 
   # GET /articles/monthly/2017/01/page/1
   def monthly
     targetMonth = datetime_parse(params[:year], params[:month])
-    @articles = Article.user_accessible(@authorityId).where(entry_at: targetMonth.to_time.all_month).offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
+    @articles = Article.user_accessible(@authorityId).order_by_descending.where(entry_at: targetMonth.to_time.all_month).offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
     render 'index'
   end
 
   # GET /articles/search_by/keyword/page/1
   def search_by
-    @articles = Article.user_accessible(@authorityId).where('content like ? or title like ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%").offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
+    @articles = Article.user_accessible(@authorityId).order_by_descending.where('content like ? or title like ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%").offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
     render 'index'
   end
 
   # GET /articles/tag/1/page/1
   def tag
-    @articles = Article.user_accessible(@authorityId).where(tags: {id: params[:tag_id]}).offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
+    @articles = Article.includes(:tags).user_accessible(@authorityId).order_by_descending.where(tags: {id: params[:tag_id]}).offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
     render 'index'
   end
 
