@@ -1,5 +1,4 @@
 class ArticlesController < ApplicationController
-  before_action :set_authority
   ARTICLES_COUNT_PER_PAGE = 5
 
   # GET /articles
@@ -59,14 +58,6 @@ class ArticlesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_authority
-      # 未ログインは権限1
-      @authorityId = 1
-      if user_signed_in?
-        @authorityId = current_user.authority_id
-      end
-    end
-
     def set_tags
       @tags = Tag.all
     end
