@@ -37,6 +37,16 @@
 
         %aside
           %h1 記事の検索
+          .field
+            %input{type: 'text', name: 'keyword', id: 'keyword'}
+          .actions
+            %input{type: 'button', value: '検索', onclick: "location.href='/articles/search_by/' + $('#keyword').val()" }
+
+        %aside
+          %h1 カレンダー
+
+        %aside
+          %h1 月選択
 
         %aside
           %h1 タグ
@@ -48,10 +58,10 @@
           %h1 最新コメント
           - @recent_comments.each do |comment|
             %ul.list
-              %li= link_to '%s<br />%s(%s)' % [comment.entry_user_name, comment.article.title, comment.created_at], article_path(comment.article, anchor: :comments)
-
-        %aside
-          %h1 RSS
+              = link_to article_path(comment.article, anchor: :comments) do
+                = comment.entry_user_name
+                %br
+                = '→%s(%s)' % [comment.article.title, comment.created_at.strftime('%Y/%m/%d')]
 
       %section.articles
         = yield
