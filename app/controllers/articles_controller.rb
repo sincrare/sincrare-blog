@@ -3,43 +3,43 @@ class ArticlesController < ApplicationController
 
   # GET /articles
   def index
-    @articles = Article.includes(:authorities).order(entry_at: :desc).where(authorities: {id: @authorityId}, is_draft: false).take(ARTICLES_COUNT_PER_PAGE)
+    @articles = Article.user_accessible(@authorityId).take(ARTICLES_COUNT_PER_PAGE)
   end
 
   # GET /articles/1
   def show
-    @article = Article.includes(:authorities).find_by(id: params[:id], authorities: {id: @authorityId}, is_draft: false)
+    @article = Article.user_accessible(@authorityId).find_by(id: params[:id])
   end
 
   # GET /articles/page/1
   def page
-    @articles = Article.includes(:authorities).order(entry_at: :desc).where(authorities: {id: @authorityId}, is_draft: false).offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
+    @articles = Article.user_accessible(@authorityId).offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
     render 'index'
   end
 
   # GET /articles/daily/2017/01/01/page/1
   def daily
     targetDay = datetime_parse(params[:year], params[:month], params[:day])
-    @articles = Article.includes(:authorities).order(entry_at: :desc).where(entry_at: targetDay.to_time.all_day , authorities: {id: @authorityId}, is_draft: false).offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
+    @articles = Article.user_accessible(@authorityId).where(entry_at: targetDay.to_time.all_day).offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
     render 'index'
   end
 
   # GET /articles/monthly/2017/01/page/1
   def monthly
     targetMonth = datetime_parse(params[:year], params[:month])
-    @articles = Article.includes(:authorities).order(entry_at: :desc).where(entry_at: targetMonth.to_time.all_month , authorities: {id: @authorityId}, is_draft: false).offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
+    @articles = Article.user_accessible(@authorityId).where(entry_at: targetMonth.to_time.all_month).offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
     render 'index'
   end
 
   # GET /articles/search_by/keyword/page/1
   def search_by
-    @articles = Article.includes(:authorities).order(entry_at: :desc).where(authorities: {id: @authorityId}, is_draft: false).where('content like ? or title like ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%").offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
+    @articles = Article.user_accessible(@authorityId).where('content like ? or title like ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%").offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
     render 'index'
   end
 
   # GET /articles/tag/1/page/1
   def tag
-    @articles = Article.includes(:authorities, :tags).order(entry_at: :desc).where(authorities: {id: @authorityId}, is_draft: false).where(tags: {id: params[:tag_id]}).offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
+    @articles = Article.user_accessible(@authorityId).where(tags: {id: params[:tag_id]}).offset(current_page * ARTICLES_COUNT_PER_PAGE).take(ARTICLES_COUNT_PER_PAGE)
     render 'index'
   end
 
@@ -63,7 +63,7 @@ class ArticlesController < ApplicationController
     end
 
     def set_recent_comments
-      @recent_comments = Comment.includes(article: :authorities).where(authorities: {id: @authorityId}).take(RECENT_COMMENTS_COUNT)
+      @recent_comments = Comment.user_accessible(@authorityId).take(RECENT_COMMENTS_COUNT)
     end
 
     def current_page

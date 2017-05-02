@@ -7,4 +7,6 @@ class Article < ApplicationRecord
   has_many :article_tags
   has_many :tags, :through => :article_tags
   has_many :likes, dependent: :destroy
+
+  scope :user_accessible, ->(authority_id) { includes(:authorities).order(entry_at: :desc).where(authorities: {id: authority_id}, is_draft: false) }
 end

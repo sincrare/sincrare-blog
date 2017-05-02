@@ -33,6 +33,6 @@ class ApplicationController < ActionController::Base
     end
 
     def set_monthly_count
-      @monthly_articles_count = Article.includes(:authorities).where(authorities: {id: @authorityId}, is_draft: false).group("to_char(entry_at, 'yyyy')").group("to_char(entry_at, 'MM')").count
+      @monthly_articles_count = Article.user_accessible(@authorityId).group("to_char(entry_at, 'yyyy')").group("to_char(entry_at, 'MM')").count
     end
 end
