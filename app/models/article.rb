@@ -10,4 +10,5 @@ class Article < ApplicationRecord
 
   scope :user_accessible, ->(authority_id) { includes(:authorities).where(authorities: {id: authority_id}, is_draft: false) }
   scope :order_by_descending, -> { order(entry_at: :desc) }
+  scope :order_by_ascending, -> { order(entry_at: :asc) }
 end

@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
     end
 
     def set_recent_comments
-      @recent_comments = Comment.includes(article: :authorities).where(authorities: {id: @authorityId}).take(RECENT_COMMENTS_COUNT)
+      @recent_comments = Comment.user_accessible(@authorityId).take(RECENT_COMMENTS_COUNT)
     end
 
     def set_monthly_count
