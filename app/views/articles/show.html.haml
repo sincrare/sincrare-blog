@@ -17,7 +17,7 @@
       %p= 'タグ：' + (@article.tags.pluck :name).join(',')
       %p= (link_to "コメント(#{@article.comments.count})", article_path(@article, anchor: :comments))  + '/' + (link_to 'この記事のURL', article_path(@article))
 
-    = @article.content
+    = simple_format(@article.content)
 
     %p= (link_to "コメント(#{@article.comments.count})", article_path(@article, anchor: :comments))  + '/' + (link_to 'この記事のURL', article_path(@article))
 
@@ -29,7 +29,7 @@
         - @article.comments.each_with_index do |comment, index|
           - if index > 0
             %hr.article_separator_line
-          %p=comment.content
+          %p=simple_format(comment.content)
           %p='%s / %s' % [comment.entry_user_name, comment.created_at.strftime('%Y-%m-%d %H:%M:%S')]
 
         %hr
@@ -42,7 +42,7 @@
             = text_field_tag 'comment[entry_user_name]'
           .field
           = label_tag 'comment[content]', 'コメント:'
-          = text_area_tag 'comment[content]'
+          = preserve text_area_tag 'comment[content]'
           .actions
             = submit_tag 'コメント送信'
       - else

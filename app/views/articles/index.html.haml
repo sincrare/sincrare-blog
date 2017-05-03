@@ -20,7 +20,7 @@
         %p= 'タグ：' + (article.tags.pluck :name).join(',')
         %p= (link_to "コメント(#{article.comments.count})", article_path(article, anchor: :comments))  + '/' + (link_to 'この記事のURL', article_path(article))
 
-      = article.content
+      = simple_format(article.content)
 
       %p= (link_to "コメント(#{article.comments.count})", article_path(article, anchor: :comments))  + '/' + (link_to 'この記事のURL', article_path(article))
 

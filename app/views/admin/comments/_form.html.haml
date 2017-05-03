@@ -12,7 +12,7 @@
 
   .field
     = f.label :content, 'コメント:'
-    = f.text_area :content
+    = preserve f.text_area :content
 
   .field
     = f.label :entry_user_id, '投稿ユーザーID:'
