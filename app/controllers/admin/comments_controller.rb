@@ -1,4 +1,5 @@
 class Admin::CommentsController < ApplicationController
+  before_action :is_admin_accessible
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
   layout 'admin_layout'
 

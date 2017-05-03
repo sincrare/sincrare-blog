@@ -7,6 +7,7 @@
     - if @past_link.present?
       |
       %a{ href: @past_link} 前へ >>
+
   %article.article
     %header
       %time.entry_date(datetime="#{@article.entry_at.strftime('%Y-%m-%d %H:%M')}")

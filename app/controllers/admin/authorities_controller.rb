@@ -1,4 +1,5 @@
 class Admin::AuthoritiesController < ApplicationController
+  before_action :is_admin_accessible
   before_action :set_authority, only: [:show, :edit, :update, :destroy]
   layout 'admin_layout'
 

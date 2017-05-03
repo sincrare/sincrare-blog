@@ -7,6 +7,7 @@
     - if @past_link.present?
       |
       %a{ href: @past_link} 前へ >>
+
   - @articles.each_with_index do |article, index|
     %article.article
       - if index > 0

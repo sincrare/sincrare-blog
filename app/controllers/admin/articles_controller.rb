@@ -1,4 +1,5 @@
 class Admin::ArticlesController < ApplicationController
+  before_action :is_admin_accessible
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   layout 'admin_layout'
 

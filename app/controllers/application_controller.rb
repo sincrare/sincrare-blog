@@ -35,4 +35,10 @@ class ApplicationController < ActionController::Base
     def set_monthly_count
       @monthly_articles_count = Article.user_accessible(@authorityId).group("to_char(entry_at, 'yyyy')").group("to_char(entry_at, 'MM')").count
     end
+
+    def is_admin_accessible
+      if user_signed_in? == false || current_user.id != 1
+        redirect_to articles_path
+      end
+    end
 end
